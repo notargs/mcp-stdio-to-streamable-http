@@ -7,13 +7,16 @@
   "scripts": {
     "build": "tsc",
     "start": "npm install && npm run build && node dist/index.js",
-    "dev": "tsc && node dist/index.js"
+    "dev": "node dist/index.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0"
   },
   "engines": {
     "node": ">=18.0.0"
+  },
+  "bin": {
+    "stdio-to-streamable-http": "./dist/index.js"
   },
   "devDependencies": {
     "@types/node": "^24.0.1",

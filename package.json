@@ -1,5 +1,5 @@
 {
-  "name": "unity-natural-mcp-server",
+  "name": "stdio-to-streamable-http",
   "version": "1.0.0",
   "description": "MCP server for Unity Natural",
   "type": "module",

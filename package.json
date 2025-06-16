@@ -15,6 +15,9 @@
   "engines": {
     "node": ">=18.0.0"
   },
+  "bin": {
+    "stdio-to-streamable-http": "./dist/index.js"
+  },
   "devDependencies": {
     "@types/node": "^24.0.1",
     "typescript": "^5.8.3"

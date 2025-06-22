@@ -1,6 +1,6 @@
 {
   "name": "mcp-stdio-to-streamable-http",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "MCP server for Unity Natural",
   "type": "module",
   "main": "dist/index.js",

@@ -1,0 +1,67 @@
+name: Create Version Bump PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to bump to (e.g., 1.0.1, 1.1.0, 2.0.0)'
+        required: true
+        type: string
+
+jobs:
+  create-version-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Create version bump branch
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git checkout -b "version-bump-${{ github.event.inputs.version }}"
+
+      - name: Update version
+        run: npm version ${{ github.event.inputs.version }} --no-git-tag-version
+
+      - name: Commit changes
+        run: |
+          git add package.json package-lock.json
+          git commit -m "chore: bump version to ${{ github.event.inputs.version }}"
+
+      - name: Push branch
+        run: git push origin "version-bump-${{ github.event.inputs.version }}"
+
+      - name: Create Pull Request
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `chore: bump version to ${{ github.event.inputs.version }}`,
+              head: `version-bump-${{ github.event.inputs.version }}`,
+              base: 'main',
+              body: `## Version Bump to ${{ github.event.inputs.version }}
+
+              This PR updates the package version to ${{ github.event.inputs.version }}.
+
+              **Changes:**
+              - Updated \`package.json\` version
+              - Updated \`package-lock.json\`
+
+              Once merged, this will automatically trigger the release workflow.
+
+              /cc @${{ github.actor }}`
+            });
+            
+            console.log(`Created PR #${pr.number}: ${pr.html_url}`);

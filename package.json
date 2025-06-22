@@ -1,5 +1,5 @@
 {
-  "name": "stdio-to-streamable-http",
+  "name": "mcp-stdio-to-streamable-http",
   "version": "0.1.1",
   "description": "MCP server for Unity Natural",
   "type": "module",
@@ -16,7 +16,7 @@
     "node": ">=18.0.0"
   },
   "bin": {
-    "stdio-to-streamable-http": "./dist/index.js"
+    "mcp-stdio-to-streamable-http": "./dist/index.js"
   },
   "devDependencies": {
     "@types/node": "^24.0.1",

@@ -36,9 +36,7 @@ jobs:
         run: npm run build
       
       - name: Create release archive
-        run: |
-          tar -czf mcp-stdio-to-streamable-http-v${{ steps.version.outputs.version }}.tar.gz dist/ node_modules/ package.json package-lock.json
-          zip -r mcp-stdio-to-streamable-http-v${{ steps.version.outputs.version }}.zip dist/ node_modules/ package.json package-lock.json
+        run: zip -r mcp-stdio-to-streamable-http-v${{ steps.version.outputs.version }}.zip dist/ node_modules/ package.json package-lock.json
       
       - name: Create and push git tag
         run: |
@@ -52,9 +50,7 @@ jobs:
         with:
           tag_name: "v${{ steps.version.outputs.version }}"
           name: "Release v${{ steps.version.outputs.version }}"
-          files: |
-            mcp-stdio-to-streamable-http-v${{ steps.version.outputs.version }}.tar.gz
-            mcp-stdio-to-streamable-http-v${{ steps.version.outputs.version }}.zip
+          files: mcp-stdio-to-streamable-http-v${{ steps.version.outputs.version }}.zip
           draft: false
           prerelease: false
         env:
